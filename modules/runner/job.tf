@@ -112,7 +112,7 @@ resource "kubernetes_deployment" "runner" {
     # parallelism   = 1
   }
 
-  wait_for_completion = false
+  # wait_for_completion = false
 
   depends_on = [
     kubernetes_secret.runner
