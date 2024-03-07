@@ -1,5 +1,5 @@
 
-resource "kubernetes_job" "runner" {
+resource "kubernetes_deployment" "runner" {
   metadata {
     name      = "runner"
     namespace = var.namespace
@@ -107,9 +107,9 @@ resource "kubernetes_job" "runner" {
       }
     }
 
-    backoff_limit = 6
-    completions   = 1
-    parallelism   = 1
+    # backoff_limit = 6
+    # completions   = 1
+    # parallelism   = 1
   }
 
   wait_for_completion = false
