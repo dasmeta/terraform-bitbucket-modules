@@ -7,7 +7,8 @@ resource "kubernetes_deployment" "runner" {
   spec {
     selector {
       match_labels = {
-        test = "runner"
+        accountUuid = var.accountUuid
+        runnerUuid  = var.runnerUuid
       }
     }
 
