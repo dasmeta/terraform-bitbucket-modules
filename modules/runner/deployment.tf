@@ -5,6 +5,8 @@ resource "kubernetes_deployment" "runner" {
     namespace = var.namespace
   }
   spec {
+    replicas = var.replica_count
+
     selector {
       match_labels = {
         accountUuid = var.accountUuid
@@ -115,11 +117,6 @@ resource "kubernetes_deployment" "runner" {
       }
     }
   }
-  # backoff_limit = 6
-  # completions   = 1
-  # parallelism   = 1
-
-  # wait_for_completion = false
 
   depends_on = [
     kubernetes_secret.runner
