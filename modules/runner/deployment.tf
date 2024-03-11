@@ -1,11 +1,20 @@
 
-resource "kubernetes_job" "runner" {
+resource "kubernetes_deployment" "runner" {
   metadata {
     name      = "runner"
     namespace = var.namespace
   }
-
   spec {
+    replicas = var.replica_count
+
+    selector {
+      match_labels = {
+        accountUuid = var.accountUuid
+        runnerUuid  = var.runnerUuid
+      }
+    }
+
+
     template {
       metadata {
         labels = {
@@ -13,6 +22,7 @@ resource "kubernetes_job" "runner" {
           runnerUuid  = var.runnerUuid
         }
       }
+
       spec {
         container {
           name  = "bitbucket-k8s-runner"
@@ -92,7 +102,7 @@ resource "kubernetes_job" "runner" {
             mount_path = "/var/run"
           }
         }
-        restart_policy = "OnFailure"
+        restart_policy = "Always"
         volume {
           name = "tmp"
         }
@@ -106,13 +116,7 @@ resource "kubernetes_job" "runner" {
         }
       }
     }
-
-    backoff_limit = 6
-    completions   = 1
-    parallelism   = 1
   }
-
-  wait_for_completion = false
 
   depends_on = [
     kubernetes_secret.runner

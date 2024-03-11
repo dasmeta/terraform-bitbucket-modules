@@ -29,3 +29,9 @@ variable "create_namespace" {
   description = "Create namespace or use existing one"
   default     = true
 }
+
+variable "replica_count" {
+  type        = number
+  default     = 2
+  description = "Deployment replica count"
+}
