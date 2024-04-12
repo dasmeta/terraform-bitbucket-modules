@@ -14,6 +14,11 @@ resource "kubernetes_job" "runner" {
         }
       }
       spec {
+        
+        nodeSelector {
+          "ondemand" = "true"
+        }
+
         container {
           name  = "bitbucket-k8s-runner"
           image = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner"
