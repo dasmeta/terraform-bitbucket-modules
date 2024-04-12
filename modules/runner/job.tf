@@ -16,7 +16,7 @@ resource "kubernetes_job" "runner" {
       spec {
         
         nodeSelector {
-          "ondemand" = "true"
+          ondemand = "true"
         }
 
         container {
