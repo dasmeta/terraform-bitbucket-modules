@@ -21,7 +21,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [kubernetes_job.runner](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/job) | resource |
+| [kubernetes_cron_job.runner_cronjob](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/cron_job) | resource |
 | [kubernetes_namespace_v1.runner](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/namespace_v1) | resource |
 | [kubernetes_secret.runner](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/secret) | resource |
 
