@@ -29,3 +29,9 @@ variable "create_namespace" {
   description = "Create namespace or use existing one"
   default     = true
 }
+
+variable "cron_schedule" {
+  type        = string
+  description = "Cronjob schedule"
+  default     = "*/5 * * * *"
+}

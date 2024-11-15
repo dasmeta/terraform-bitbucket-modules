@@ -5,7 +5,8 @@ resource "kubernetes_cron_job" "runner_cronjob" {
   }
 
   spec {
-    schedule                      = "0 * * * *" # This schedule runs the job every hour
+    schedule                      = var.cron_schedule # This schedule runs the job every hour
+    concurrency_policy            = "Forbid"
     successful_jobs_history_limit = 3
     failed_jobs_history_limit     = 1
 
