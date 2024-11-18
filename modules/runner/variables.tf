@@ -33,5 +33,5 @@ variable "create_namespace" {
 variable "cron_schedule" {
   type        = string
   description = "Cronjob schedule"
-  default     = "*/5 * * * *"
+  default     = "* * * * *"
 }
