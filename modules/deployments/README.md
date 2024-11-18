@@ -81,7 +81,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_deployments"></a> [deployments](#input\_deployments) | n/a | <pre>list(object({<br>    name  = string<br>    stage = string<br>    variables = list(object({<br>      name    = string<br>      value   = string<br>      secured = bool<br>    }))<br>  }))</pre> | n/a | yes |
+| <a name="input_deployments"></a> [deployments](#input\_deployments) | n/a | <pre>list(object({<br/>    name  = string<br/>    stage = string<br/>    variables = list(object({<br/>      name    = string<br/>      value   = string<br/>      secured = bool<br/>    }))<br/>  }))</pre> | n/a | yes |
 | <a name="input_repository_id"></a> [repository\_id](#input\_repository\_id) | n/a | `string` | n/a | yes |
 
 ## Outputs

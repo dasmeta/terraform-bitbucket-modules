@@ -30,8 +30,7 @@ variable "create_namespace" {
   default     = true
 }
 
-variable "replica_count" {
-  type        = number
-  default     = 2
-  description = "Deployment replica count"
-}
+variable "cron_schedule" {
+  type        = string
+  description = "Cronjob schedule"
+  default     = "* * * * *"
