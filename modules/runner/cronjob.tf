@@ -30,12 +30,12 @@ resource "kubernetes_cron_job_v1" "runner_cronjob" {
 
               env {
                 name  = "ACCOUNT_UUID"
-                value = var.accountUuid
+                value = "{${var.accountUuid}}"
               }
 
               env {
                 name  = "RUNNER_UUID"
-                value = var.runnerUuid
+                value = "{${var.runnerUuid}}"
               }
 
               env {
