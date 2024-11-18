@@ -34,4 +34,3 @@ variable "cron_schedule" {
   type        = string
   description = "Cronjob schedule"
   default     = "* * * * *"
-}
