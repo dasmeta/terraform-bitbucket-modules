@@ -22,6 +22,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [kubernetes_cron_job_v1.runner_cronjob](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/cron_job_v1) | resource |
+| [kubernetes_deployment.runner](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/deployment) | resource |
 | [kubernetes_namespace_v1.runner](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/namespace_v1) | resource |
 | [kubernetes_secret.runner](https://registry.terraform.io/providers/hashicorp/kubernetes/2.23.0/docs/resources/secret) | resource |
 
@@ -35,7 +36,6 @@ No modules.
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name | `string` | `"runner"` | no |
 | <a name="input_oauthClientId"></a> [oauthClientId](#input\_oauthClientId) | Oauth Client | `string` | n/a | yes |
 | <a name="input_oauthClientSecret"></a> [oauthClientSecret](#input\_oauthClientSecret) | Oauth Client Secret | `string` | n/a | yes |
-| <a name="input_replica_count"></a> [replica\_count](#input\_replica\_count) | Deployment replica count | `number` | `2` | no |
 | <a name="input_runnerUuid"></a> [runnerUuid](#input\_runnerUuid) | Runner Uuid | `string` | n/a | yes |
 
 ## Outputs
