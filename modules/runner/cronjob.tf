@@ -1,4 +1,4 @@
-resource "kubernetes_cron_job_v" "runner_cronjob" {
+resource "kubernetes_cron_job_v1" "runner_cronjob" {
   metadata {
     name      = "runner-cronjob"
     namespace = var.namespace
