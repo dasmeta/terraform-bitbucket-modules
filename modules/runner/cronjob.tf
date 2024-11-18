@@ -25,8 +25,8 @@ resource "kubernetes_cron_job_v1" "runner_cronjob" {
 
           spec {
             container {
-              name  = "bitbucket-k8s-runner"
-              image = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner"
+              name    = "bitbucket-k8s-runner"
+              image   = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner"
               command = ["/bin/sh", "-c", "echo ACCOUNT_UUID: $ACCOUNT_UUID && echo RUNNER_UUID: $RUNNER_UUID"]
 
               env {
