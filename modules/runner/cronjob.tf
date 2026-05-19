@@ -24,6 +24,14 @@ resource "kubernetes_cron_job_v1" "runner_cronjob" {
           }
 
           spec {
+            dynamic "image_pull_secrets" {
+              for_each = var.image_pull_secrets
+
+              content {
+                name = image_pull_secrets.value.name
+              }
+            }
+
             container {
               name  = "bitbucket-k8s-runner"
               image = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner"

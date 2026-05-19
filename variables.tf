@@ -29,3 +29,17 @@ variable "create_namespace" {
   description = "Create namespace or use existing one"
   default     = true
 }
+
+variable "namespace_labels" {
+  type        = map(string)
+  description = "Labels to apply to the runner namespace when it is created"
+  default     = {}
+}
+
+variable "image_pull_secrets" {
+  type = list(object({
+    name = string
+  }))
+  description = "List of image pull secret names for the runner cronjob pod"
+  default     = []
+}
