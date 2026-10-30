@@ -1,5 +1,8 @@
 # runner
 
+This provider and default-image upgrade requires a **major release**. Existing
+consumers must follow the [migration notes](../../docs/migrations/runner-provider-v3.md).
+
 ## Runner images
 
 The default runner image is
@@ -29,10 +32,9 @@ module "runner" {
 }
 ```
 
-The defaults use stable releases verified on 2026-10-29. Docker 29.9.2 accepts
-the Docker API used by older runner clients. Validate checkout, Docker build/run/push, caches, and artifacts in a staging
+Validate checkout, Docker build/run/push, caches, and artifacts in a staging
 pipeline before production; image availability and API overlap do not prove
-runtime compatibility. See the [image research](../../specs/003-current-dependencies/research.md).
+runtime compatibility. See the [migration notes](../../docs/migrations/runner-provider-v3.md).
 
 The CronJob update affects future Jobs. Existing Jobs retain their old images,
 and `Forbid` prevents the next scheduled Job while one remains active. Manually
