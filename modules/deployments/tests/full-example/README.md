@@ -1,5 +1,14 @@
 # full-example
 
+Configures development and production deployment environments for an existing
+repository, each with secured and ordinary pipeline variables. Replace the
+repository identifier and placeholder values, then configure Bitbucket provider
+authentication before planning against a real account. `terraform init
+-backend=false` and `terraform validate` check the example without applying it.
+
+Credential-free rendering checks run from the repository root with Terraform >= 1.7:
+`terraform -chdir=modules/deployments test`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -13,7 +22,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bitbucket"></a> [bitbucket](#module\_bitbucket) | ../ | n/a |
+| <a name="module_deployments"></a> [deployments](#module\_deployments) | ../.. | n/a |
 
 ## Resources
 

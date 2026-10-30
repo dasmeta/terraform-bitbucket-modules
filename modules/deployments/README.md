@@ -1,70 +1,74 @@
-# Terraform module to manage repository `Deployments`
+# Terraform module to manage repository deployments
 
-## About
+Manage deployment environments and their pipeline variables for an existing
+Bitbucket repository. This module does not create the repository or project.
 
----
-Deployment is environment which has its own variables to use in pipelines
+## Usage
 
-## Provider configuration
-
----
 ```hcl
 terraform {
   required_providers {
     bitbucket = {
       source  = "DrFaust92/bitbucket"
-      version = "2.30.2"
+      version = "2.53.0"
     }
   }
 }
-```
-## Usage
 
----
-```hcl
 module "deployments" {
+  source = "./terraform-bitbucket-modules/modules/deployments"
 
-  source = "./deployments"
-  deployments = local.deployments
-  repository_id = "my-repository-xxxx-id"
-
-}
-
-locals {
+  repository_id = "example-workspace/example-repository"
   deployments = [
     {
-     name = "development1"
-     stage = "Test"
-     variables = {
-       "key1" = ["value1", "secured"]
-       "key2" = ["value2", "secured"]
-     }
+      name  = "development"
+      stage = "Test"
+      variables = [
+        { name = "API_URL", value = "https://development.example.com", secured = false },
+        { name = "DEPLOY_TOKEN", value = var.development_token, secured = true }
+      ]
     },
-
     {
-     name = "development1"
-     stage = "Test"
-     variables = {
-       "key1" = ["value1", "secured"]
-       "key2" = ["value2"]
-     }
+      name      = "production"
+      stage     = "Production"
+      variables = []
     }
-
   ]
 }
 ```
+
+Use a unique deployment name for each environment. `variables` is a list of
+objects with `name`, `value`, and Boolean `secured` fields; use `[]` when an
+environment needs no variables. Configure authentication using the
+[Bitbucket provider documentation](https://registry.terraform.io/providers/DrFaust92/bitbucket/2.53.0/docs).
+
+The provider is pinned to 2.53.0. When upgrading an existing installation, run
+`terraform init -upgrade` and review the lockfile and the plan against the actual
+state before applying. The resource addresses and input shape remain unchanged.
+Restore the prior provider configuration and lockfile to roll back, and review
+state compatibility before applying with an older provider.
+
+The [minimal example](tests/minimal-example) creates one environment; the
+[full example](tests/full-example) shows variables across two environments.
+From the repository root, Terraform >= 1.7 can run credential-free mocked plans:
+
+```sh
+terraform -chdir=modules/deployments init -backend=false
+terraform -chdir=modules/deployments test
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_bitbucket"></a> [bitbucket](#requirement\_bitbucket) | 2.31.0 |
+| <a name="requirement_bitbucket"></a> [bitbucket](#requirement\_bitbucket) | 2.53.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_bitbucket"></a> [bitbucket](#provider\_bitbucket) | 2.31.0 |
+| <a name="provider_bitbucket"></a> [bitbucket](#provider\_bitbucket) | 2.53.0 |
 
 ## Modules
 
@@ -74,8 +78,8 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [bitbucket_deployment.depl](https://registry.terraform.io/providers/DrFaust92/bitbucket/2.31.0/docs/resources/deployment) | resource |
-| [bitbucket_deployment_variable.depl-vars](https://registry.terraform.io/providers/DrFaust92/bitbucket/2.31.0/docs/resources/deployment_variable) | resource |
+| [bitbucket_deployment.depl](https://registry.terraform.io/providers/DrFaust92/bitbucket/2.53.0/docs/resources/deployment) | resource |
+| [bitbucket_deployment_variable.depl-vars](https://registry.terraform.io/providers/DrFaust92/bitbucket/2.53.0/docs/resources/deployment_variable) | resource |
 
 ## Inputs
 

@@ -6,22 +6,28 @@ on:
 jobs:
   terraform-validate:
     permissions:
-      actions: write
-      contents: write
-      discussions: write
-      pull-requests: write
-      id-token: write
+      contents: read
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         path:
-          - /
+          - .
+          - modules/deployments
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.path }}
 
     steps:
-    - uses: dasmeta/reusable-actions-workflows/terraform-test@4.2.0
-      with:
-        aws-region: ${{ secrets.AWS_REGION}}
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        path: ${{ matrix.path }}
-      continue-on-error: true
+      - uses: actions/checkout@v7.0.1
+      - uses: hashicorp/setup-terraform@v4.0.1
+        with:
+          terraform_version: 1.17.1
+          terraform_wrapper: false
+      - name: Initialize Terraform
+        run: terraform init -backend=false -input=false
+      - name: Validate Terraform
+        run: terraform validate -no-color
+      - name: Run module tests
+        run: terraform test -no-color

@@ -1,46 +1,23 @@
-module "bitbucket" {
-  source = "../"
+module "deployments" {
+  source = "../.."
 
-  name        = "Repository-terraformed"
-  owner       = "DevOps"
-  description = "Repository description"
-  website     = "www.dasmeta.com"
-  language    = "python"
-  fork_policy = "allow_forks"
-
-  project = {
-    create     = true
-    name       = "Project1"
-    key        = "project1"
-    is_private = false
-  }
-
-  restrictions = {
-    action = "push"
-    branch = "master"
-  }
-
+  repository_id = "example-workspace/example-repository"
   deployments = [
     {
-      name  = "development1"
+      name  = "development"
       stage = "Test"
       variables = [
-        { name = "key1", value = "value1", secured = true },
-        { name = "key2", value = "value2", secured = false }
+        { name = "DEPLOY_TOKEN", value = "example-development-token", secured = true },
+        { name = "API_URL", value = "https://development.example.com", secured = false }
       ]
     },
     {
-      name  = "development2"
-      stage = "Test"
+      name  = "production"
+      stage = "Production"
       variables = [
-        { name = "key1", value = "value1", secured = true },
-        { name = "key2", value = "value2", secured = false }
+        { name = "DEPLOY_TOKEN", value = "example-production-token", secured = true },
+        { name = "API_URL", value = "https://api.example.com", secured = false }
       ]
-    },
-  ]
-
-  repository_variables = [
-    { name = "key1", value = "value1", secured = true },
-    { name = "key2", value = "value2", secured = false }
+    }
   ]
 }
