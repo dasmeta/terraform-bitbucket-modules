@@ -21,7 +21,7 @@ variable "runnerUuid" {
 variable "runner_image" {
   type        = string
   description = "Bitbucket runner container image reference (tag, digest, or private mirror)"
-  default     = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3"
+  default     = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3"
   nullable    = false
 }
 

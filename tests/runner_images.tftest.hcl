@@ -29,7 +29,7 @@ run "direct_defaults" {
   }
 
   assert {
-    condition     = kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[0].image == "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3"
+    condition     = kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[0].image == "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3"
     error_message = "Runner must use the documented pinned default."
   }
   assert {
@@ -79,7 +79,7 @@ run "dind_only_override" {
   }
 
   assert {
-    condition     = kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[0].image == "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3" && kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[1].image == var.dind_image
+    condition     = kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[0].image == "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3" && kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[1].image == var.dind_image
     error_message = "Overriding DinD must retain the runner default."
   }
 }
@@ -117,7 +117,7 @@ run "null_uses_defaults" {
   }
 
   assert {
-    condition     = kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[0].image == "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3" && kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[1].image == "docker:29.9.2-dind"
+    condition     = kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[0].image == "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3" && kubernetes_cron_job_v1.runner_cronjob.spec[0].job_template[0].spec[0].template[0].spec[0].container[1].image == "docker:29.9.2-dind"
     error_message = "Explicit null must select both defaults."
   }
 }

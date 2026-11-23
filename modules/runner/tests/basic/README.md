@@ -1,7 +1,7 @@
 # basic
 
 Configuration example for the runner submodule with Kubernetes provider 3.4.0,
-runner 6.1.3, and Docker-in-Docker 29.9.2. The example uses `~/.kube/config`;
+runner 7.1.3, and Docker-in-Docker 29.9.2. The example uses `~/.kube/config`;
 adapt the provider configuration and replace OAuth/UUID placeholders for the
 intended cluster. The referenced image pull secret must exist in the runner
 namespace when using a private registry.
