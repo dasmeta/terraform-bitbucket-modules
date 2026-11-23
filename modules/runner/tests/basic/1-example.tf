@@ -4,7 +4,7 @@ module "test" {
   oauthClientSecret        = "Outh Client Secret"
   accountUuid              = "Account Uuid"
   runnerUuid               = "Runner Uuid"
-  runner_image             = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3"
+  runner_image             = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3"
   dind_image               = "docker:29.9.2-dind"
   runner_image_pull_policy = "Always"
   dind_image_pull_policy   = "IfNotPresent"

@@ -6,10 +6,18 @@ consumers must follow the [migration notes](../../docs/migrations/runner-provide
 ## Runner images
 
 The default runner image is
-`docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3`;
+`docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3`;
 the default Docker-in-Docker image is `docker:29.9.2-dind`. Omit either optional
 input or set it to `null` to use its default. Empty or whitespace-only image
 references are rejected.
+
+The Linux amd64 Runner 7.1.3 image contains Temurin 25.0.5.1+2, which fixes
+CVE-2026-114938,
+and includes the upstream `-XX:UseAVX=2` startup mitigation. See the
+[runner changelog](https://runners.bitbucket.org/downloads/CHANGELOG.md) and
+[Temurin advisory](https://adoptium.net/news/2026/11/temurin-november-2026-cspu-java4shell/).
+An explicitly configured `runner_image` overrides this default, so existing callers
+with a pinned older image must update that input to receive the security update.
 
 Override either image independently with a full tag, digest, or private mirror:
 
@@ -22,7 +30,7 @@ module "runner" {
   accountUuid       = var.accountUuid
   runnerUuid        = var.runnerUuid
 
-  runner_image = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3"
+  runner_image = "docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3"
   dind_image   = "docker:29.9.2-dind"
 
   # Digest alternative: replace <verified-digest> with the actual SHA-256 digest.
@@ -243,7 +251,7 @@ No modules.
 | <a name="input_pod_annotations"></a> [pod\_annotations](#input\_pod\_annotations) | Annotations to apply to the runner Pod template | `map(string)` | `{}` | no |
 | <a name="input_pod_security_context"></a> [pod\_security\_context](#input\_pod\_security\_context) | Pod-level seccomp profile for the runner Pod template | <pre>object({<br/>    seccomp_profile = optional(object({<br/>      type              = string<br/>      localhost_profile = optional(string)<br/>    }))<br/>  })</pre> | `{}` | no |
 | <a name="input_runnerUuid"></a> [runnerUuid](#input\_runnerUuid) | Runner Uuid | `string` | n/a | yes |
-| <a name="input_runner_image"></a> [runner\_image](#input\_runner\_image) | Bitbucket runner container image reference (tag, digest, or private mirror) | `string` | `"docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:6.1.3"` | no |
+| <a name="input_runner_image"></a> [runner\_image](#input\_runner\_image) | Bitbucket runner container image reference (tag, digest, or private mirror) | `string` | `"docker-public.packages.atlassian.com/sox/atlassian/bitbucket-pipelines-runner:7.1.3"` | no |
 | <a name="input_runner_image_pull_policy"></a> [runner\_image\_pull\_policy](#input\_runner\_image\_pull\_policy) | Image pull policy for the Bitbucket runner container; null uses the provider default | `string` | `null` | no |
 | <a name="input_runner_resources"></a> [runner\_resources](#input\_runner\_resources) | Resource requests and limits for the Bitbucket runner container | <pre>object({<br/>    requests = optional(map(string), {})<br/>    limits   = optional(map(string), {})<br/>  })</pre> | `{}` | no |
 | <a name="input_runner_security_context"></a> [runner\_security\_context](#input\_runner\_security\_context) | Security context settings for the Bitbucket runner container | <pre>object({<br/>    privileged                 = optional(bool)<br/>    allow_privilege_escalation = optional(bool)<br/>    read_only_root_filesystem  = optional(bool)<br/>    run_as_non_root            = optional(bool)<br/>    seccomp_profile = optional(object({<br/>      type              = string<br/>      localhost_profile = optional(string)<br/>    }))<br/>  })</pre> | `{}` | no |
