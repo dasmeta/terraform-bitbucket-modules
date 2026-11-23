@@ -1,9 +1,11 @@
 # terraform-bitbucket-modules
 Terraform modules for Bitbucket
 
-The provider and default runner/DinD image upgrade requires a **major release**.
-Read the [migration and squash-release instructions](docs/migrations/runner-provider-v3.md)
-before upgrading an existing installation.
+The default Runner update from 6.1.3 to 7.1.3 requires a **major release**.
+Read the [Runner 7 migration and squash-release instructions](docs/migrations/runner-7.md)
+before upgrading; restrictive egress rules may need the new WebSocket endpoint.
+For the earlier provider/DinD upgrade, see the
+[provider migration notes](docs/migrations/runner-provider-v3.md).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

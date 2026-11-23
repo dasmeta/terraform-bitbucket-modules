@@ -1,7 +1,9 @@
 # runner
 
-This provider and default-image upgrade requires a **major release**. Existing
-consumers must follow the [migration notes](../../docs/migrations/runner-provider-v3.md).
+The default Runner update from 6.1.3 to 7.1.3 requires a **major release**.
+Existing consumers must follow the [Runner 7 migration notes](../../docs/migrations/runner-7.md),
+including the WebSocket egress change. For the earlier provider/DinD upgrade,
+see the [provider migration notes](../../docs/migrations/runner-provider-v3.md).
 
 ## Runner images
 
@@ -11,11 +13,13 @@ the default Docker-in-Docker image is `docker:29.9.2-dind`. Omit either optional
 input or set it to `null` to use its default. Empty or whitespace-only image
 references are rejected.
 
-The Linux amd64 Runner 7.1.3 image contains Temurin 25.0.5.1+2, which fixes
-CVE-2026-114938,
-and includes the upstream `-XX:UseAVX=2` startup mitigation. See the
-[runner changelog](https://runners.bitbucket.org/downloads/CHANGELOG.md) and
-[Temurin advisory](https://adoptium.net/news/2026/11/temurin-november-2026-cspu-java4shell/).
+The [upstream changelog](https://runners.bitbucket.org/downloads/CHANGELOG.md)
+documents the `-XX:UseAVX=2` startup mitigation in Runner 7.1.3. The Linux amd64
+image inspected on 2026-11-23 contains Temurin 25.0.5.1+2; the
+[reproducible digest-pinned inspection](../../docs/migrations/runner-7.md#reproducible-java-image-inspection)
+records the exact image and output. The
+[Temurin advisory](https://adoptium.net/news/2026/11/temurin-november-2026-cspu-java4shell/)
+identifies that Java build as fixing CVE-2026-114938.
 An explicitly configured `runner_image` overrides this default, so existing callers
 with a pinned older image must update that input to receive the security update.
 
@@ -42,7 +46,7 @@ module "runner" {
 
 Validate checkout, Docker build/run/push, caches, and artifacts in a staging
 pipeline before production; image availability and API overlap do not prove
-runtime compatibility. See the [migration notes](../../docs/migrations/runner-provider-v3.md).
+runtime compatibility. See the [Runner 7 migration notes](../../docs/migrations/runner-7.md).
 
 The CronJob update affects future Jobs. Existing Jobs retain their old images,
 and `Forbid` prevents the next scheduled Job while one remains active. Manually
